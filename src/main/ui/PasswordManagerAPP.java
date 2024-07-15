@@ -1,5 +1,6 @@
 package ui;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +15,13 @@ public class PasswordManagerAPP {
     private String password;
     private String username;
     private List<Item> newItemList = new ArrayList<>(); 
+    
+    private static final String CHARACTERS = 
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+            + "abcdefghijklmnopqrstuvwxyz" 
+            + "0123456789" 
+            + "!@#$%^&*()-_=+[]{}|;:,.<>?";
+    private static final SecureRandom RANDOM = new SecureRandom();      
     
     // CITATION
     // EFFECTS: run the password manager application
@@ -155,9 +163,19 @@ public class PasswordManagerAPP {
 
      
     private void generatePassword(List<Item> newItemList) {
-
+        int passwordLength = 10;
+        String randomPassword = generateRandom(passwordLength);
+        System.out.println("Generated Password:" + randomPassword);
     }
 
+    private String generateRandom(int passwordLength) {
+        StringBuilder randomPassword = new StringBuilder(passwordLength);
 
-
+        for (int i = 0; i < passwordLength; i++) {
+            // generates a random integer from 0 (inclusive) to n (exclusive).
+            int randomIndex = RANDOM.nextInt(CHARACTERS.length());
+            randomPassword.append(CHARACTERS.charAt(randomIndex));
+        }
+        return randomPassword.toString();
+    }
 }
