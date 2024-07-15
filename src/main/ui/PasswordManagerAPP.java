@@ -166,6 +166,17 @@ public class PasswordManagerAPP {
         int passwordLength = 10;
         String randomPassword = generateRandom(passwordLength);
         System.out.println("Generated Password:" + randomPassword);
+        System.out.println("Do you want to save this password? Y/N");
+        String saveCommand = input.next();
+        if ((saveCommand.toLowerCase()).equals("y")) {
+            System.out.println("Please enter item name:");
+            String saveItemName = input.next();
+            System.out.println("Please enter username:");
+            String saveUsername = input.next();
+            Item saveItem = new Item(saveItemName, randomPassword, saveUsername);
+            newItemList.add(saveItem); 
+            System.out.println("Successfully save generated password!");
+        } 
     }
 
     private String generateRandom(int passwordLength) {
