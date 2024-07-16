@@ -10,10 +10,7 @@ import model.Item;
 
 public class PasswordManagerAPP {
     private Scanner input;
-    private String command;
-    private String itemName;
-    private String password;
-    private String username;
+
     private List<Item> newItemList = new ArrayList<>(); 
     
     private static final String CHARACTERS = 
@@ -59,6 +56,7 @@ public class PasswordManagerAPP {
     private void displayMenu() {
         System.out.println("\nSelect from");
         System.out.println("\ts -> save password");
+        System.out.println("\tf -> find password");
         System.out.println("\td -> delete password");
         System.out.println("\tg -> generate password");
         System.out.println("\tv -> view item list");
@@ -75,6 +73,8 @@ public class PasswordManagerAPP {
             deleteItem(newItemList);
         } else if (command.equals("g")) {
             generatePassword(newItemList);
+        } else if (command.equals("f")) {
+            findPassword(newItemList);
         } else {
             System.out.println("Invalid selection...");
         }
@@ -102,9 +102,6 @@ public class PasswordManagerAPP {
                     item.getItemName(), item.getUsername(), item.getPassword());
         }
         System.out.println("------------------------------------------------");
-        
-
-
     }
     
     private void deleteItem(List<Item> newItemList) {
@@ -189,4 +186,67 @@ public class PasswordManagerAPP {
         }
         return randomPassword.toString();
     }
+
+    private void findPassword(List<Item> newItemList) {
+        System.out.println("\nInput item name to find:");
+        String itemNameToFind = input.next();
+
+        int countFind = countItemFind(newItemList, itemNameToFind);
+
+        if (countFind == 1) {
+            findItemUnique(newItemList, itemNameToFind);
+        } else if (countFind > 1) {
+            findItemMultiple(newItemList, itemNameToFind);
+        } else {
+            System.out.println("\nItem not found. Please check the item name and try again.");
+        }
+    }
+
+    public int countItemFind(List<Item> newItemList, String itemName) {
+        int countFind = 0;
+        for (Item item : newItemList) {
+            if (item.getItemName().contains(itemName)) {
+                countFind++;
+            }
+        }
+        return countFind;
+    }
+
+    public void findItemUnique(List<Item> newItemList, String itemName) {
+        for (Item item : newItemList) {
+            if (item.getItemName().contains(itemName)) {
+                String findPassword = item.getPassword();
+                String findUsername = item.getUsername();
+                String findItemName = item.getItemName();
+
+                System.out.println("\nSuccessfully find!" + "\nItem name:" + findItemName 
+                        + "\nPassword:" + findPassword + "\nUsername:" + findUsername);
+                break;
+            }
+        }
+    }
+
+    public void findItemMultiple(List<Item> newItemList, String itemName) {
+        boolean itemFound = false;
+        System.out.println("\nMultiple items found with the same name");
+        System.out.println("Input username associated with the item:");
+        String usernameToFind = input.next();
+        for (Item item : newItemList) {
+            if (item.getItemName().contains(itemName) 
+                        && item.getUsername().contains(usernameToFind)) {
+                String findPassword = item.getPassword();
+                String findUsername = item.getUsername();
+                String findItemName = item.getItemName();
+
+                System.out.println("\nSuccessfully find!" + "\nItem name:" + findItemName 
+                            + "\nPassword:" + findPassword + "\nUsername:" + findUsername);
+                itemFound = true;
+                break;
+            }
+        }
+        if (!itemFound) {
+            System.out.println("\nItem not found. Please check the item name, username and try again");
+        }
+    }      
+
 }

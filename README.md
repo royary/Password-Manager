@@ -11,7 +11,7 @@ This application is **designed for** people who needs to *manage numerous passwo
 - As a user, I want to be able to view the list of item names in my Manager
 - As a user, I want to be able to delete a password from my Manager
 - As a user, I want to be able to generate random, strong passwords in my Manager
-- As a user, I want to be able to search passwords in my Manager
+- As a user, I want to be able to find passwords in my Manager
 
 
 
