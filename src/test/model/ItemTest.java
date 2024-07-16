@@ -32,4 +32,22 @@ public class ItemTest {
         
     }
 
+    @Test
+    public void testEmptyItem() {
+        Item item = new Item("", "1234", "user5");
+        assertEquals("", item.getItemName());
+    }
+
+    @Test
+    public void testEmptyPassword() {
+        Item item = new Item("LinkedIn", "", "user5");
+        assertEquals("", item.getPassword());
+    }
+
+    @Test
+    public void testEmptyUsername() {
+        Item item = new Item("GitHub", "gitpass", "");
+        assertEquals("", item.getUsername());
+    }
+
 }
