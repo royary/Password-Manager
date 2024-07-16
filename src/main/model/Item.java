@@ -20,16 +20,16 @@ public class Item {
     }
 
     public String getItemName() {
-        return itemName;
+        return this.itemName;
     }
 
  
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
 }
