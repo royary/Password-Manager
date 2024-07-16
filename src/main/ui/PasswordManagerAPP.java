@@ -7,7 +7,10 @@ import java.util.Scanner;
 
 import model.Item;
 
-
+/*
+ * Represents a Password Manager application.
+ * Implement function of save, view, delete, generate, and find passwords.
+ */
 public class PasswordManagerAPP {
     private Scanner input;
 
@@ -20,12 +23,13 @@ public class PasswordManagerAPP {
             + "!@#$%^&*()-_=+[]{}|;:,.<>?";
     private static final SecureRandom RANDOM = new SecureRandom();      
     
-    // CITATION
-    // EFFECTS: run the password manager application
+    // CITATION: modeled from https://github.students.cs.ubc.ca/CPSC210/TellerApp
+    // EFFECTS: Initializes and runs the password manager application.
     public PasswordManagerAPP() {
         runManager();
     }
-
+    
+    // EFFECTS: Runs the main loop of the password manager application.
     private void runManager() {
         boolean continueRun = true;
         String command = null;
@@ -45,14 +49,15 @@ public class PasswordManagerAPP {
         }
         System.out.println("Quit password manager successful");
     }
-
+    
+    // CITATION: modeled from https://github.students.cs.ubc.ca/CPSC210/TellerApp
+    // EFFECTS: Initializes the input scanner.
     private void initialize() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-        //TODO
-
     }
     
+    // EFFECTS: Displays the main menu options to the user.
     private void displayMenu() {
         System.out.println("\nSelect from");
         System.out.println("\ts -> save password");
@@ -63,7 +68,8 @@ public class PasswordManagerAPP {
         System.out.println("\tq -> quit");
 
     }
-
+    
+    // EFFECTS: Executes the command given by the user.
     private void runCommand(String command) {
         if (command.equals("s")) {
             savePassword();
@@ -80,6 +86,9 @@ public class PasswordManagerAPP {
         }
     }
 
+     // MODIFIES: this
+     // EFFECTS: Remind user to input item name, password, and username, 
+     // then saves the new item to the list.
     private void savePassword() {
         
         System.out.println("\nInput item name:");
@@ -93,6 +102,7 @@ public class PasswordManagerAPP {
         System.out.println("\nNew item successfully created!");   
     }
 
+    // EFFECTS: Displays the list of items with their names, usernames, and passwords.
     private void viewItemList(List<Item> newItemList) {
         System.out.println("------------------------------------------------");
         System.out.println("|  Item Name  |  Username  |  Password  |");
@@ -103,7 +113,11 @@ public class PasswordManagerAPP {
         }
         System.out.println("------------------------------------------------");
     }
+
+
     
+    // EFFECTS: Remind user to input item name to delete, 
+    // then deletes the item from the list if it exists.
     private void deleteItem(List<Item> newItemList) {
         System.out.println("\nInput item name to delete:");
         String itemNameToDelete = input.next();
@@ -119,6 +133,7 @@ public class PasswordManagerAPP {
         }
     }
 
+    // EFFECTS: Returns the count of items with the same given name.
     public int countItem(List<Item> newItemList, String itemName) {
         int count = 0;
         for (Item item : newItemList) {
@@ -129,6 +144,8 @@ public class PasswordManagerAPP {
         return count;
     }
 
+    // MODIFIES: this
+    // EFFECTS: Deletes the unique item with the given name from the list.
     public void deleteItemUnique(List<Item> newItemList, String itemName) {
         for (Item item : newItemList) {
             if (item.getItemName().equals(itemName)) {
@@ -139,6 +156,9 @@ public class PasswordManagerAPP {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Deletes the item with the given name and username from the list 
+    // if multiple items with the same name exist.
     public void deleteItemMultiple(List<Item> newItemList, String itemName) {
         boolean itemFound = false;
         System.out.println("\nMultiple items found with the same name");
@@ -158,7 +178,9 @@ public class PasswordManagerAPP {
         }
     }      
 
-     
+    // MODIFIES: this
+    // EFFECTS: Generates a random password, displays it, 
+    // and optionally saves it as a new item.
     private void generatePassword(List<Item> newItemList) {
         int passwordLength = 10;
         String randomPassword = generateRandom(passwordLength);
@@ -176,6 +198,8 @@ public class PasswordManagerAPP {
         } 
     }
 
+    // REQUIRES: passwordLength = 0
+    // EFFECTS: Generates and returns a random password of the specified length.
     private String generateRandom(int passwordLength) {
         StringBuilder randomPassword = new StringBuilder(passwordLength);
 
@@ -187,6 +211,8 @@ public class PasswordManagerAPP {
         return randomPassword.toString();
     }
 
+  
+    // EFFECTS: Remind user to input item name to find, then displays the item details if it exists.
     private void findPassword(List<Item> newItemList) {
         System.out.println("\nInput item name to find:");
         String itemNameToFind = input.next();
@@ -202,6 +228,8 @@ public class PasswordManagerAPP {
         }
     }
 
+   
+    // EFFECTS: Returns the count of items in list that contain the given string.
     public int countItemFind(List<Item> newItemList, String itemName) {
         int countFind = 0;
         for (Item item : newItemList) {
@@ -212,6 +240,7 @@ public class PasswordManagerAPP {
         return countFind;
     }
 
+    // EFFECTS: Finds and displays the details of a unique item that contains the given string.
     public void findItemUnique(List<Item> newItemList, String itemName) {
         for (Item item : newItemList) {
             if (item.getItemName().contains(itemName)) {
@@ -226,6 +255,10 @@ public class PasswordManagerAPP {
         }
     }
 
+
+    // EFFECTS: Finds and displays the details of an item with the given name and username
+    // when multiple items with the same name exist. 
+    // If the item is not found, prompts the user to check the inputs.
     public void findItemMultiple(List<Item> newItemList, String itemName) {
         boolean itemFound = false;
         System.out.println("\nMultiple items found with the same name");
