@@ -1,7 +1,6 @@
 package model;
 
-
-// Represents a item, with a item name, a password and a username.
+// Represents an item, with an item name, a password, and a username.
 public class Item {
     // A String of item name, can't be empty or null
     private String itemName;
@@ -11,19 +10,22 @@ public class Item {
     private String username;
 
     // MODIFIES: this
-    // REQUIRES: itemName, password, username have a non-zero length
+    // REQUIRES: itemName not null or empty
     // EFFECTS: Creates an item with the given item name, password, and username.
     public Item(String itemName, String password, String username) {
-        this.itemName = itemName;
+        if (itemName == null || itemName.isEmpty()) {
+            this.itemName = "Unnamed Item";
+        } else {
+            this.itemName = itemName;
+        }
         this.password = password;
-        this.username = username;  
+        this.username = username;
     }
 
     public String getItemName() {
         return this.itemName;
     }
 
- 
     public String getPassword() {
         return this.password;
     }
@@ -32,5 +34,9 @@ public class Item {
         return this.username;
     }
 
+    // EFFECTS: Returns true if the item contains the specified keyword in its name
+    public boolean containsKeyword(String keyword) {
+        return this.itemName.contains(keyword);
+    }
 }
 

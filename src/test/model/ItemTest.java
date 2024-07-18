@@ -1,52 +1,55 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-
-public class ItemTest {
-    private Item testItem1;
-    private Item testItem2;
+class ItemTest {
+    private Item item;
 
     @BeforeEach
-    public void runBefore() {
-        testItem1 = new Item("item1", "12345", "54321");
-        testItem2 = new Item("item2", "password!2", "username?3");
+    void setUp() {
+        item = new Item("TestItem", "TestPassword", "TestUser");
     }
 
     @Test
-    public void testConstructor() {
-        assertEquals("item1", testItem1.getItemName());
-        assertEquals("12345", testItem1.getPassword());
-        assertEquals("54321", testItem1.getUsername());
+    void testConstructorWithValidInputs() {
+        assertEquals("TestItem", item.getItemName());
+        assertEquals("TestPassword", item.getPassword());
+        assertEquals("TestUser", item.getUsername());
     }
 
     @Test
-    void testGetters() {
-        assertEquals("item2", testItem2.getItemName());
-        assertEquals("password!2", testItem2.getPassword());
-        assertEquals("username?3", testItem2.getUsername());
-        
+    void testConstructorWithInvalidItemName() {
+        Item itemWithInvalidName = new Item("", "TestPassword", "TestUser");
+        assertEquals("Unnamed Item", itemWithInvalidName.getItemName());
     }
 
     @Test
-    public void testEmptyItem() {
-        Item item = new Item("", "1234", "user5");
-        assertEquals("", item.getItemName());
+    void testConstructorWithNullItemName() {
+        Item itemWithNullName = new Item(null, "TestPassword", "TestUser");
+        assertEquals("Unnamed Item", itemWithNullName.getItemName());
     }
 
     @Test
-    public void testEmptyPassword() {
-        Item item = new Item("LinkedIn", "", "user5");
-        assertEquals("", item.getPassword());
+    void testGetItemName() {
+        assertEquals("TestItem", item.getItemName());
     }
 
     @Test
-    public void testEmptyUsername() {
-        Item item = new Item("GitHub", "gitpass", "");
-        assertEquals("", item.getUsername());
+    void testGetPassword() {
+        assertEquals("TestPassword", item.getPassword());
     }
 
+    @Test
+    void testGetUsername() {
+        assertEquals("TestUser", item.getUsername());
+    }
+
+    @Test
+    void testContainsKeyword() {
+        assertTrue(item.containsKeyword("Test"));
+        assertFalse(item.containsKeyword("Invalid"));
+    }
 }
