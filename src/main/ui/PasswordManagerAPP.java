@@ -58,7 +58,7 @@ public class PasswordManagerAPP {
     // EFFECTS: Displays the main menu options to the user.
     private void displayMenu() {
         System.out.println("\nSelect from");
-        System.out.println("\ts -> save password");
+        System.out.println("\ta -> add password");
         System.out.println("\tf -> find password");
         System.out.println("\td -> delete password");
         System.out.println("\tg -> generate password");
@@ -68,7 +68,7 @@ public class PasswordManagerAPP {
 
     // EFFECTS: Executes the command given by the user.
     private void runCommand(String command) {
-        if (command.equals("s")) {
+        if (command.equals("a")) {
             savePassword();
         } else if (command.equals("v")) {
             displayItemList();
