@@ -12,9 +12,8 @@ This application is **designed for** people who needs to *manage numerous passwo
 - As a user, I want to be able to delete a password from my Manager
 - As a user, I want to be able to generate random, strong passwords in my Manager
 - As a user, I want to be able to find passwords in my Manager
-- As a user, when I select the quit option from the application menu, I want to be reminded to save my password list to file and have the option to do so or not.
-- As a user, when I start the application, I want to be given the option to load my password list from file.
-
+- As a user, I want to be able to save my item list to file (if I so choose)
+- As a user, I want to be able to be able to load my item list from file (if I so choose)
 
 
 
