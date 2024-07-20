@@ -1,7 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents an item, with an item name, a password, and a username.
-public class Item {
+public class Item implements Writable {
     // A String of item name, can't be empty or null
     private String itemName;
     // A string of password, can be an empty string
@@ -38,5 +42,13 @@ public class Item {
     public boolean containsKeyword(String keyword) {
         return this.itemName.contains(keyword);
     }
-}
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("item name", itemName);
+        json.put("password", password);
+        json.put("username", username);
+        return json;
+    }
+}

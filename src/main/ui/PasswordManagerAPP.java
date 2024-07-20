@@ -1,18 +1,25 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Scanner;
 import model.Item;
 import model.ItemList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 /*
  * Represents a Password Manager application.
  * Implement function of save, view, delete, generate, and find passwords.
  */
 public class PasswordManagerAPP {
+    private static final String JSON_STORE = "./data/itemlist.json";
     private Scanner input;
-    private ItemList itemList = new ItemList();
+    private ItemList itemList;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     private static final String CHARACTERS = 
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
@@ -23,7 +30,10 @@ public class PasswordManagerAPP {
 
     // CITATION: modeled from https://github.students.cs.ubc.ca/CPSC210/TellerApp
     // EFFECTS: Initializes and runs the password manager application.
-    public PasswordManagerAPP() {
+    public PasswordManagerAPP() throws FileNotFoundException {
+        itemList = new ItemList();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runManager();
     }
 
@@ -63,13 +73,15 @@ public class PasswordManagerAPP {
         System.out.println("\td -> delete password");
         System.out.println("\tg -> generate password");
         System.out.println("\tv -> view item list");
+        System.out.println("\ts -> save item list to file");
+        System.out.println("\tl -> load item list from file");
         System.out.println("\tq -> quit");
     }
 
     // EFFECTS: Executes the command given by the user.
     private void runCommand(String command) {
         if (command.equals("a")) {
-            savePassword();
+            addPassword();
         } else if (command.equals("v")) {
             displayItemList();
         } else if (command.equals("d")) {
@@ -78,6 +90,10 @@ public class PasswordManagerAPP {
             generatePassword();
         } else if (command.equals("f")) {
             findPassword();
+        } else if (command.equals("s")) {
+            saveItemList();
+        } else if (command.equals("l")) {
+            loadItemList();
         } else {
             System.out.println("Invalid selection...");
         }
@@ -86,7 +102,7 @@ public class PasswordManagerAPP {
     // MODIFIES: this
     // EFFECTS: Prompts user to input item name, password, and username, 
     // then saves the new item to the list.
-    private void savePassword() {
+    private void addPassword() {
         System.out.println("\nInput item name:");
         String itemName = input.next();
         System.out.println("\nInput password:");
@@ -173,6 +189,29 @@ public class PasswordManagerAPP {
                                   + "\nPassword: " + item.getPassword() 
                                   + "\nUsername: " + item.getUsername());
             }
+        }
+    }
+
+     // EFFECTS: saves the workroom to file
+    private void saveItemList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(itemList);
+            jsonWriter.close();
+            System.out.println("Saved current item list to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadItemList() {
+        try {
+            itemList = jsonReader.read();
+            System.out.println("Loaded previous item list from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 }

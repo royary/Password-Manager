@@ -3,8 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents an item list, with items in it.
-public class ItemList {
+public class ItemList implements Writable {
     private List<Item> items;
 
     // EFFECTS: Initializes an empty list of items
@@ -49,5 +54,22 @@ public class ItemList {
     // EFFECTS: Returns the list of items
     public List<Item> getItems() {
         return items;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Items", itemsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this Item List as a JSON array
+    private JSONArray itemsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item i : items) {
+            jsonArray.put(i.toJson());
+        }
+        return jsonArray;
     }
 }
