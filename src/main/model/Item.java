@@ -43,6 +43,9 @@ public class Item implements Writable {
         return this.itemName.contains(keyword);
     }
 
+    // CITATION: modeled from
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: converts an item into a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

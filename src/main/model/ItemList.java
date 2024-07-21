@@ -40,7 +40,8 @@ public class ItemList implements Writable {
         return count;
     }
 
-    // EFFECTS: Returns a list of items that contain the specified keyword in their name
+    // EFFECTS: Returns a list of items that contain the specified keyword in their
+    // name
     public List<Item> findItemsByName(String keyword) {
         List<Item> result = new ArrayList<>();
         for (Item item : items) {
@@ -56,6 +57,9 @@ public class ItemList implements Writable {
         return items;
     }
 
+    // CITATION: modeled from
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: converts item list to JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -63,7 +67,9 @@ public class ItemList implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this Item List as a JSON array
+    // CITATION: modeled from
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns things in this item list as a JSON array
     private JSONArray itemsToJson() {
         JSONArray jsonArray = new JSONArray();
 

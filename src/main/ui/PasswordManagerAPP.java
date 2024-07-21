@@ -10,6 +10,7 @@ import model.ItemList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+// some parts of this class have been modeled from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 /*
  * Represents a Password Manager application.
  * Implement function of save, view, delete, generate, and find passwords.
@@ -21,12 +22,11 @@ public class PasswordManagerAPP {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    private static final String CHARACTERS = 
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
-            + "abcdefghijklmnopqrstuvwxyz" 
-            + "0123456789" 
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            + "abcdefghijklmnopqrstuvwxyz"
+            + "0123456789"
             + "!@#$%^&*()-_=+[]{}|;:,.<>?";
-    private static final SecureRandom RANDOM = new SecureRandom();      
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     // CITATION: modeled from https://github.students.cs.ubc.ca/CPSC210/TellerApp
     // EFFECTS: Initializes and runs the password manager application.
@@ -53,7 +53,7 @@ public class PasswordManagerAPP {
                 continueRun = false;
             } else {
                 runCommand(command);
-            }        
+            }
         }
         System.out.println("Quit password manager successfully");
     }
@@ -100,7 +100,7 @@ public class PasswordManagerAPP {
     }
 
     // MODIFIES: this
-    // EFFECTS: Prompts user to input item name, password, and username, 
+    // EFFECTS: Prompts user to input item name, password, and username,
     // then saves the new item to the list.
     private void addPassword() {
         System.out.println("\nInput item name:");
@@ -114,21 +114,23 @@ public class PasswordManagerAPP {
         System.out.println("\nNew item successfully created!");
     }
 
-    // EFFECTS: Displays the list of items with their names, usernames, and passwords.
+    // EFFECTS: Displays the list of items with their names, usernames, and
+    // passwords.
     private void displayItemList() {
         List<Item> items = itemList.getItems();
         System.out.println("------------------------------------------------");
         System.out.println("|  Item Name  |  Username  |  Password  |");
         System.out.println("------------------------------------------------");
         for (Item item : items) {
-            System.out.printf("|  %-10s  |  %-10s  |  %-10s  |%n", 
+            System.out.printf("|  %-10s  |  %-10s  |  %-10s  |%n",
                     item.getItemName(), item.getUsername(), item.getPassword());
         }
         System.out.println("------------------------------------------------");
     }
 
     // MODIFIES: this
-    // EFFECTS: Prompts user to input item name to delete, then deletes the item from the list if it exists.
+    // EFFECTS: Prompts user to input item name to delete, then deletes the item
+    // from the list if it exists.
     private void deleteItem() {
         System.out.println("\nInput item name to delete:");
         String itemNameToDelete = input.next();
@@ -144,7 +146,7 @@ public class PasswordManagerAPP {
     }
 
     // MODIFIES: this
-    // EFFECTS: Generates a random password, displays it, 
+    // EFFECTS: Generates a random password, displays it,
     // and optionally saves it as a new item.
     private void generatePassword() {
         int passwordLength = 10;
@@ -174,7 +176,8 @@ public class PasswordManagerAPP {
         return randomPassword.toString();
     }
 
-    // EFFECTS: Prompts user to input item name to find, then displays the item details if it exists.
+    // EFFECTS: Prompts user to input item name to find, then displays the item
+    // details if it exists.
     private void findPassword() {
         System.out.println("\nInput item name to find:");
         String itemNameToFind = input.next();
@@ -185,14 +188,14 @@ public class PasswordManagerAPP {
         } else {
             System.out.println("\nFound Items:");
             for (Item item : foundItems) {
-                System.out.println("Item name: " + item.getItemName()  
-                                  + "\nPassword: " + item.getPassword() 
-                                  + "\nUsername: " + item.getUsername());
+                System.out.println("Item name: " + item.getItemName()
+                        + "\nPassword: " + item.getPassword()
+                        + "\nUsername: " + item.getUsername());
             }
         }
     }
 
-     // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the ItemList to file
     private void saveItemList() {
         try {
             jsonWriter.open();
@@ -205,7 +208,7 @@ public class PasswordManagerAPP {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads ItemList from file
     private void loadItemList() {
         try {
             itemList = jsonReader.read();
@@ -215,4 +218,3 @@ public class PasswordManagerAPP {
         }
     }
 }
-
