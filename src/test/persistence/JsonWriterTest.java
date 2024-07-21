@@ -20,14 +20,7 @@ public class JsonWriterTest extends JsonTest {
             ItemList il = new ItemList();
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
-
-
-
             fail("IOException was expected");
-
-
-
-            
         } catch (IOException e) {
             // pass
         }
