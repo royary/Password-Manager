@@ -54,4 +54,9 @@ public class Item implements Writable {
         json.put("username", username);
         return json;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Item Name: %s, Username: %s, Password: %s", itemName, username, password);
+    }
 }

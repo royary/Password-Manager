@@ -167,7 +167,7 @@ public class PasswordManagerAPP {
 
     // REQUIRES: passwordLength > 0
     // EFFECTS: Generates and returns a random password of the specified length.
-    private String generateRandom(int passwordLength) {
+    public static String generateRandom(int passwordLength) {
         StringBuilder randomPassword = new StringBuilder(passwordLength);
         for (int i = 0; i < passwordLength; i++) {
             int randomIndex = RANDOM.nextInt(CHARACTERS.length());
