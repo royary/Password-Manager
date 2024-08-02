@@ -4,16 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.DefaultListModel;
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-
 
 import model.Item;
 import model.ItemList;
@@ -22,7 +20,6 @@ import persistence.JsonWriter;
 
 import java.util.List;
 
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,21 +27,18 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 // Represents graphical user interface
-public class Gui extends JFrame  {
+public class Gui extends JFrame {
     private static final String JSON_STORE = "./data/itemlist.json";
     private static final int WIDTH = 400;
     private static final int HEIGHT = 600;
 
     private DefaultListModel<Item> itemListModel;
 
-
-
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
     private ItemList itemList;
 
-   
-
+    private ImageIcon image;
 
     // EFFECTS: Create and set up the main application window.
     public Gui() {
@@ -70,6 +64,10 @@ public class Gui extends JFrame  {
         jsonWriter = new JsonWriter(JSON_STORE);
         itemList = new ItemList();
         itemListModel = new DefaultListModel<>();
+        ImageIcon originalIcon = new ImageIcon("./data/picture.jpg");
+        Image originalImage = originalIcon.getImage();
+        Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Resize to 100x100 pixels
+        image = new ImageIcon(resizedImage);
     }
 
     // EFFECTS: updates item on screen from backend
@@ -133,6 +131,20 @@ public class Gui extends JFrame  {
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.insets = new Insets(5, 0, 5, 0); // Add some spacing between buttons
 
+        // Load and resize the image
+        ImageIcon originalIcon = new ImageIcon("./data/picture2.jpg");
+        Image originalImage = originalIcon.getImage();
+        Image resizedImage = originalImage.getScaledInstance(250, 150, Image.SCALE_SMOOTH); // Resize to 100x100 pixels
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel topImageLabel = new JLabel(resizedIcon);
+
+        // Add the image label to the button pane
+        gbc.gridy = 0;
+        buttonPane.add(topImageLabel, gbc);
+
+        // Reset the gridy position for buttons
+        gbc.gridy = GridBagConstraints.RELATIVE;
+
         buttonPane.add(createButton("Add Password", "Add"), gbc);
         buttonPane.add(createButton("Find Password", "Find"), gbc);
         buttonPane.add(createButton("Delete Password", "Delete"), gbc);
@@ -181,45 +193,43 @@ public class Gui extends JFrame  {
             JOptionPane.showMessageDialog(null, scrollPane, "All Items", JOptionPane.INFORMATION_MESSAGE);
         }
 
-
-
         private void generatePasswordAction() {
             String randomPassword = generateAndShowPassword();
             if (askToSavePassword(randomPassword)) {
                 saveGeneratedPassword(randomPassword);
             }
         }
-        
+
         private String generateAndShowPassword() {
             int passwordLength = 10;
             String randomPassword = PasswordManagerAPP.generateRandom(passwordLength);
             JOptionPane.showMessageDialog(null, "Generated Password: " + randomPassword);
             return randomPassword;
         }
-        
+
         private boolean askToSavePassword(String randomPassword) {
             int saveOption = JOptionPane.showConfirmDialog(
                     null, "Do you want to save this password?", "Save Password",
                     JOptionPane.YES_NO_OPTION);
             return saveOption == JOptionPane.YES_OPTION;
         }
-        
+
         private void saveGeneratedPassword(String randomPassword) {
             GenerateItemWindow newItemWindow = new GenerateItemWindow(randomPassword);
             JPanel panel = newItemWindow.returnJPanel();
-        
+
             int optionPaneValue = JOptionPane.showConfirmDialog(
                     null, panel,
                     "Save Generated Password",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, image);
+
             if (optionPaneValue == JOptionPane.OK_OPTION) {
                 try {
                     String itemName = newItemWindow.getItemName();
                     String userName = newItemWindow.getUsername();
                     String password = newItemWindow.getPassword();
                     Item newItem = new Item(itemName, password, userName);
-        
+
                     itemList.addItem(newItem);
                     updateItems();
                     JOptionPane.showMessageDialog(null, "Password saved successfully!");
@@ -228,7 +238,6 @@ public class Gui extends JFrame  {
                 }
             }
         }
-        
 
         private void findPasswordAction() {
             FindItemWindow findItemWindow = new FindItemWindow();
@@ -244,8 +253,6 @@ public class Gui extends JFrame  {
             }
         }
 
-
-
         private void handleSearch(FindItemWindow findItemWindow) {
             String itemName = findItemWindow.getItemName();
             String username = findItemWindow.getUsername();
@@ -258,8 +265,6 @@ public class Gui extends JFrame  {
                         "Invalid Input", JOptionPane.WARNING_MESSAGE);
             }
         }
-
-
 
         private void displaySearchResults(List<Item> foundItems) {
             if (foundItems.isEmpty()) {
@@ -275,8 +280,6 @@ public class Gui extends JFrame  {
                         "Search Results", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-
-        
 
         private void deletePasswordAction() {
             FindItemWindow removeItemWindow = new FindItemWindow();
@@ -310,7 +313,7 @@ public class Gui extends JFrame  {
             int optionPaneValue = JOptionPane.showConfirmDialog(
                     null, panel,
                     "Add Item",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, image);
 
             if (optionPaneValue == JOptionPane.OK_OPTION) {
                 try {
@@ -328,7 +331,4 @@ public class Gui extends JFrame  {
         }
     }
 
-   
-
-   
 }

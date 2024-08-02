@@ -27,7 +27,7 @@ public class GenerateItemWindow {
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setMinimumSize(new Dimension(50, 150));
-        panel.setPreferredSize(new Dimension(50, 150));
+        panel.setPreferredSize(new Dimension(200, 150));
 
         panel.setBackground(Color.PINK);
 
