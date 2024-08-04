@@ -12,9 +12,9 @@ public class GenerateItemWindow {
     private JLabel itemNameLabel;
     private JLabel passwordLabel;
     private JLabel userNameLabel;
-  
 
-    // EFFECTS: constructs the add item window with input fields and a pre-generated password
+    // EFFECTS: constructs the add item window with input fields and a pre-generated
+    // password
     public GenerateItemWindow(String preGeneratedPassword) {
         initializeFields();
 
@@ -72,5 +72,4 @@ public class GenerateItemWindow {
         return password.getText();
     }
 
-    
 }

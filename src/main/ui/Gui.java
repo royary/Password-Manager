@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+// CITATION: modeled from https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 // Represents graphical user interface
 public class Gui extends JFrame {
     private static final String JSON_STORE = "./data/itemlist.json";
@@ -57,7 +58,6 @@ public class Gui extends JFrame {
         exitSavePrompt();
     }
 
-    // MODIFIES: this
     // EFFECTS: initializes main model and data fields
     private void initializeBackend() {
         jsonReader = new JsonReader(JSON_STORE);
@@ -70,6 +70,7 @@ public class Gui extends JFrame {
         image = new ImageIcon(resizedImage);
     }
 
+    // MODIFIES: this
     // EFFECTS: updates item on screen from backend
     private void updateItems() {
 
@@ -154,6 +155,8 @@ public class Gui extends JFrame {
         add(buttonPane, BorderLayout.CENTER); // Add buttonPane to the center
     }
 
+    // CITATION: modeled from
+    // https://stackoverflow.com/questions/6578205/swing-jlabel-text-change-on-the-running-application
     // EFFECTS: creates a button with the specified text and action command
     private JButton createButton(String text, String actionCommand) {
         JButton button = new JButton(text);
@@ -186,6 +189,7 @@ public class Gui extends JFrame {
             }
         }
 
+        // EFFECTS: displays all items in the list in a scrollable dialog
         private void viewListdAction() {
             updateItems();
             JList<Item> itemListDisplay = new JList<>(itemListModel);
@@ -193,6 +197,7 @@ public class Gui extends JFrame {
             JOptionPane.showMessageDialog(null, scrollPane, "All Items", JOptionPane.INFORMATION_MESSAGE);
         }
 
+        // EFFECTS: generates a random password and prompts user to save it
         private void generatePasswordAction() {
             String randomPassword = generateAndShowPassword();
             if (askToSavePassword(randomPassword)) {
@@ -200,6 +205,7 @@ public class Gui extends JFrame {
             }
         }
 
+        // EFFECTS: generates a random password and displays it
         private String generateAndShowPassword() {
             int passwordLength = 10;
             String randomPassword = PasswordManagerAPP.generateRandom(passwordLength);
@@ -207,6 +213,7 @@ public class Gui extends JFrame {
             return randomPassword;
         }
 
+        // EFFECTS: prompts user to save generated password
         private boolean askToSavePassword(String randomPassword) {
             int saveOption = JOptionPane.showConfirmDialog(
                     null, "Do you want to save this password?", "Save Password",
@@ -214,6 +221,8 @@ public class Gui extends JFrame {
             return saveOption == JOptionPane.YES_OPTION;
         }
 
+        // MODIFIES: this, itemList
+        // EFFECTS: saves the generated password as a new item
         private void saveGeneratedPassword(String randomPassword) {
             GenerateItemWindow newItemWindow = new GenerateItemWindow(randomPassword);
             JPanel panel = newItemWindow.returnJPanel();
@@ -239,6 +248,7 @@ public class Gui extends JFrame {
             }
         }
 
+        // EFFECTS: prompts user to find a password
         private void findPasswordAction() {
             FindItemWindow findItemWindow = new FindItemWindow();
             JPanel panel = findItemWindow.getPanel();
@@ -253,6 +263,7 @@ public class Gui extends JFrame {
             }
         }
 
+        // EFFECTS: searches for items based on user input and displays results
         private void handleSearch(FindItemWindow findItemWindow) {
             String itemName = findItemWindow.getItemName();
             String username = findItemWindow.getUsername();
@@ -266,6 +277,7 @@ public class Gui extends JFrame {
             }
         }
 
+        // EFFECTS: displays search results in a scrollable dialog
         private void displaySearchResults(List<Item> foundItems) {
             if (foundItems.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No items found with the specified keyword.",
@@ -281,6 +293,7 @@ public class Gui extends JFrame {
             }
         }
 
+        // EFFECTS: prompts user to delete a password
         private void deletePasswordAction() {
             FindItemWindow removeItemWindow = new FindItemWindow();
             JPanel panel = removeItemWindow.getPanel();

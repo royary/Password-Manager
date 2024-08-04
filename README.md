@@ -16,4 +16,17 @@ This application is **designed for** people who needs to *manage numerous passwo
 - As a user, I want to be able to be able to load my item list from file (if I so choose)
 
 
+## Instructions for Grader
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking the button labelled **"Add Password"**.
+- You can find passwords by clicking the button labelled **"Find Password"**.
+  Because "find" is an ambiguous action, you can simply enter parts of the item name to receive a list of items.
+- You can view passwords by clicking the button labelled **"View List"**.
+- You can delete passwords by clicking the button labelled **"Delete Password"**. Because "delete" is a serious action, you need to enter full item name
+  and username to do this.
+- You can generate passwords by clicking the button labelled **"Generate Password"**.
+- You can locate my **visual component** by *background*, and also when you click the button labelled *"Add Password"*.
+- You can **save the state** of my application by click "Yes" buttons when you try to quit. You could have pop-up windows that give the user the option (using Yes/No buttons) to save data.  
+- You can **reload the state** of my application by click "Yes" buttons when you start. You could have pop-up windows that give the user the option (using Yes/No buttons) to load data. 
+
+
 

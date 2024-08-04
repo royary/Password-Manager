@@ -3,7 +3,6 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class AddItemWindow {
     JFrame frame;
     JPanel panel;
@@ -59,15 +58,14 @@ public class AddItemWindow {
         return itemName.getText();
     }
 
-     // EFFECTS: retrieves user name entered
+    // EFFECTS: retrieves user name entered
     public String getUsername() {
         return userName.getText();
     }
 
-     // EFFECTS: retrieves password entered
+    // EFFECTS: retrieves password entered
     public String getPassword() {
         return password.getText();
     }
-
 
 }
