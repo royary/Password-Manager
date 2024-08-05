@@ -51,4 +51,10 @@ class ItemTest {
         assertTrue(item.containsKeyword("Test"));
         assertFalse(item.containsKeyword("Invalid"));
     }
+
+    @Test
+    void testToString() {
+        String expectedString = "Item Name: TestItem, Username: TestUser, Password: TestPassword";
+        assertEquals(expectedString, item.toString());
+    }
 }
