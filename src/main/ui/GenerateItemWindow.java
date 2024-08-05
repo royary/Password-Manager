@@ -4,6 +4,13 @@ import javax.swing.*;
 
 import java.awt.*;
 
+/**
+ * The GenerateItemWindow class creates a window for adding a new item with
+ * fields for item name, username, and password.
+ * It includes an option to pre-fill the password field with a pre-generated
+ * password.
+ * The layout uses a vertical BoxLayout, and the panel has a pink background.
+ */
 public class GenerateItemWindow {
     private JPanel panel;
     private JTextField itemName;

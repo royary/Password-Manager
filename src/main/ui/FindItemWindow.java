@@ -3,6 +3,12 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The FindItemWindow class creates a window for finding an item with input
+ * fields for item name and username.
+ * It uses a GridLayout to arrange the labels and text fields in a 2x2 grid and
+ * sets a pink background.
+ */
 public class FindItemWindow {
     private JPanel panel;
     private JTextField itemNameField;

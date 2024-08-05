@@ -3,6 +3,11 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The AddItemWindow class creates a window for adding a new item with fields
+ * for item name, username, and password.
+ * It uses a vertical BoxLayout and has a pink background.
+ */
 public class AddItemWindow {
     JFrame frame;
     JPanel panel;
