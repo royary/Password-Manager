@@ -30,3 +30,36 @@ This application is **designed for** people who needs to *manage numerous passwo
 
 
 
+
+## Phase 4: Task 2
+```
+Mon Aug 05 17:38:27 PDT 2024
+item added to ItemList.
+Mon Aug 05 17:38:27 PDT 2024
+get items.
+Mon Aug 05 17:38:29 PDT 2024
+generate password.
+Mon Aug 05 17:38:34 PDT 2024
+item added to ItemList.
+Mon Aug 05 17:38:34 PDT 2024
+get items.
+Mon Aug 05 17:38:38 PDT 2024
+find item from ItemList.
+Mon Aug 05 17:38:43 PDT 2024
+item deleted from ItemList.
+Mon Aug 05 17:38:44 PDT 2024
+get items.
+```
+
+## Phase 4: Task 3
+### UML Class Diagram
+
+![UML Diagram](UML_Design_Diagram.png)
+
+
+Reflecting on the current design, I am pleased with how the model turned out. And therelationship between Item and ItemList seems clear and effective.
+
+I can enhance the UI package by improving class cohesion slightly. Having too many elements in a single class made it cumbersome and less readable, particularly when dealing with numerous similar lines of code. Instead of consolidating everything into one class, consider refactoring each GUI component into its own separate class. This approach would boost program cohesion without adding excessive coupling.
+
+
+
