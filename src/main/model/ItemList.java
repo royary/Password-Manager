@@ -1,5 +1,6 @@
 package model;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,12 @@ import persistence.Writable;
 public class ItemList implements Writable {
     private List<Item> items;
 
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            + "abcdefghijklmnopqrstuvwxyz"
+            + "0123456789"
+            + "!@#$%^&*()-_=+[]{}|;:,.<>?";
+    private static final SecureRandom RANDOM = new SecureRandom();
+
     // EFFECTS: Initializes an empty list of items
     public ItemList() {
         items = new ArrayList<>();
@@ -21,12 +28,21 @@ public class ItemList implements Writable {
     // EFFECTS: Adds an item to the list
     public void addItem(Item item) {
         items.add(item);
+        EventLog.getInstance().logEvent(new Event("item added to ItemList."));
     }
 
     // MODIFIES: this
     // EFFECTS: Removes the item with the specified name and username from the list
     public boolean removeItem(String itemName, String username) {
-        return items.removeIf(item -> item.getItemName().equals(itemName) && item.getUsername().equals(username));
+        boolean ret = items
+                .removeIf(item -> item.getItemName().equals(itemName) && item.getUsername().equals(username));
+        if (ret) {
+            EventLog.getInstance().logEvent(new Event("item deleted from ItemList."));
+        } else {
+            EventLog.getInstance()
+                    .logEvent(new Event("Delete operation was performed, but no item was deleted."));
+        }
+        return ret;
     }
 
     // EFFECTS: Returns the count of items with the specified name
@@ -49,12 +65,26 @@ public class ItemList implements Writable {
                 result.add(item);
             }
         }
+        EventLog.getInstance().logEvent(new Event("find item from ItemList."));
         return result;
     }
 
     // EFFECTS: Returns the list of items
     public List<Item> getItems() {
+        EventLog.getInstance().logEvent(new Event("get items."));
         return items;
+    }
+
+    // REQUIRES: passwordLength > 0
+    // EFFECTS: Generates and returns a random password of the specified length.
+    public static String generateRandom(int passwordLength) {
+        StringBuilder randomPassword = new StringBuilder(passwordLength);
+        for (int i = 0; i < passwordLength; i++) {
+            int randomIndex = RANDOM.nextInt(CHARACTERS.length());
+            randomPassword.append(CHARACTERS.charAt(randomIndex));
+        }
+        EventLog.getInstance().logEvent(new Event("generate password."));
+        return randomPassword.toString();
     }
 
     // CITATION: modeled from

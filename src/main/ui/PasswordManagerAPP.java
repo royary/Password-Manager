@@ -2,9 +2,9 @@ package ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Scanner;
+
 import model.Item;
 import model.ItemList;
 import persistence.JsonReader;
@@ -21,12 +21,6 @@ public class PasswordManagerAPP {
     private ItemList itemList;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            + "abcdefghijklmnopqrstuvwxyz"
-            + "0123456789"
-            + "!@#$%^&*()-_=+[]{}|;:,.<>?";
-    private static final SecureRandom RANDOM = new SecureRandom();
 
     // CITATION: modeled from https://github.students.cs.ubc.ca/CPSC210/TellerApp
     // EFFECTS: Initializes and runs the password manager application.
@@ -150,7 +144,7 @@ public class PasswordManagerAPP {
     // and optionally saves it as a new item.
     private void generatePassword() {
         int passwordLength = 10;
-        String randomPassword = generateRandom(passwordLength);
+        String randomPassword = ItemList.generateRandom(passwordLength);
         System.out.println("Generated Password: " + randomPassword);
         System.out.println("Do you want to save this password? Y/N");
         String saveCommand = input.next();
@@ -163,17 +157,6 @@ public class PasswordManagerAPP {
             itemList.addItem(saveItem);
             System.out.println("Successfully saved generated password!");
         }
-    }
-
-    // REQUIRES: passwordLength > 0
-    // EFFECTS: Generates and returns a random password of the specified length.
-    public static String generateRandom(int passwordLength) {
-        StringBuilder randomPassword = new StringBuilder(passwordLength);
-        for (int i = 0; i < passwordLength; i++) {
-            int randomIndex = RANDOM.nextInt(CHARACTERS.length());
-            randomPassword.append(CHARACTERS.charAt(randomIndex));
-        }
-        return randomPassword.toString();
     }
 
     // EFFECTS: Prompts user to input item name to find, then displays the item
@@ -217,4 +200,5 @@ public class PasswordManagerAPP {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
+
 }

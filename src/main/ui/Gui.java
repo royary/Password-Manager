@@ -73,7 +73,6 @@ public class Gui extends JFrame {
     // MODIFIES: this
     // EFFECTS: updates item on screen from backend
     private void updateItems() {
-
         itemListModel.clear();
         List<Item> items = itemList.getItems();
         for (Item item : items) {
@@ -105,6 +104,11 @@ public class Gui extends JFrame {
                 int saveOption = JOptionPane.showConfirmDialog(null,
                         "Would you like to save your record before exiting?", "Save Record",
                         JOptionPane.YES_NO_OPTION);
+
+                // ADD
+                for (model.Event e : model.EventLog.getInstance()) {
+                    System.out.println(e);
+                }
                 if (saveOption == JOptionPane.YES_OPTION) {
                     try {
                         jsonWriter.open();
@@ -208,7 +212,7 @@ public class Gui extends JFrame {
         // EFFECTS: generates a random password and displays it
         private String generateAndShowPassword() {
             int passwordLength = 10;
-            String randomPassword = PasswordManagerAPP.generateRandom(passwordLength);
+            String randomPassword = ItemList.generateRandom(passwordLength);
             JOptionPane.showMessageDialog(null, "Generated Password: " + randomPassword);
             return randomPassword;
         }

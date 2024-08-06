@@ -78,4 +78,12 @@ class ItemListTest {
         assertTrue(items.contains(item2));
         assertTrue(items.contains(item3));
     }
+
+    @Test
+    void testGenerateRandom() {
+        int length = 10;
+        String randomPassword = ItemList.generateRandom(length);
+        assertNotNull(randomPassword);
+        assertEquals(length, randomPassword.length());
+    }
 }
