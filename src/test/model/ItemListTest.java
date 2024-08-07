@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the ItemList class
+ */
 class ItemListTest {
     private ItemList itemList;
     private Item item1;

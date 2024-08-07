@@ -11,7 +11,11 @@ import org.junit.jupiter.api.Test;
 import model.Item;
 import model.ItemList;
 
-// CITATION: This class has been modeled from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+/**
+ * Unit tests for JsonWriter class
+ */
+// CITATION: This class has been modeled from
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonWriterTest extends JsonTest {
 
     @Test

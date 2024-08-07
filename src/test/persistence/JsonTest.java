@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import model.Item;
 
-// CITATION: This class has been modeled from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+/**
+ * Unit tests for the Json class
+ */
+// CITATION: This class has been modeled from
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonTest {
 
     // EFFECTS: Compares given item(s) with entered data
