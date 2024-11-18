@@ -60,3 +60,6 @@ get items.
 Reflecting on the current design, I am pleased with how the model turned out. Because the relationship between Item and ItemList seems clear and effective.
 
 I can enhance the UI package by improving class cohesion slightly. Having too many elements in a single class made it cumbersome and less readable, particularly when dealing with numerous similar lines of code. Instead of consolidating everything into one class, consider refactoring each GUI component into its own separate class. This approach would boost program cohesion without adding excessive coupling.
+
+## Run
+Open the `Main.java` and press the run button it should execute the program. If not, try to cmd+shift+p and `Clean Java Language Server WorkSpace` and try to run it again.
